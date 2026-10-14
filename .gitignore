@@ -1,0 +1,9 @@
+# Build products
+*.exe
+*.obj
+*.pdb
+*.ilk
+build/
+
+# Test output: recordings, screenshots, logs
+out/
