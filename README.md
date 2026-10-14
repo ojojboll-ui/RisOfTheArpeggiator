@@ -61,23 +61,29 @@ Windows, with:
 From the repository folder:
 
 ```bat
+build.bat
+```
+
+It configures and builds in `build\` and copies `RiseOfTheArpeggiator.exe`
+next to itself. SDL3 is linked statically, so the exe runs on its own.
+`build.bat C:\somewhere` builds in another folder instead; a short path helps
+if MSBuild complains about path length. It uses Visual Studio 2022 unless the
+`CMAKE_GENERATOR` environment variable names another generator.
+
+Or by hand:
+
+```bat
 cmake -S . -B build -G "Visual Studio 17 2022" -A x64
 cmake --build build --config Release
 ```
 
-The game is `build\Release\RiseOfTheArpeggiator.exe`. SDL3 is linked
-statically, so the exe runs on its own.
-
-`build.bat` does the same into a fixed build folder on the original
-development machine (`C:\Users\oloff\npbuild`) and copies the exe next to
-itself; change the path in it to use it elsewhere.
+which leaves the game in `build\Release\`.
 
 ## Offline tests
 
 The audio engine is plain C++ with no SDL, so it can be tested without a
-window or a gamepad. From `tools`, with the Visual Studio developer
-environment available (`tools\build.bat` calls `vcvars64.bat` from the Build
-Tools' default location):
+window or a gamepad. From `tools` (the script finds Visual Studio's C++
+compiler itself with `vswhere`):
 
 ```bat
 build.bat audiotest ..\out
