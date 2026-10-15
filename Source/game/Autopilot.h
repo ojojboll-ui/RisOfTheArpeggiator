@@ -45,8 +45,11 @@ namespace np
             Vec2 orbit = fromCentre.perp().normalised() * 0.55f;
             orbit += (centre + fromAngle (time * 0.21f, 330.0f) - me) * 0.0025f;
 
+            // The stick pushed all the way in the direction it means to go, as a
+            // player does. Half-pushed, it rarely crossed the wheel's threshold
+            // and the attract mode hardly changed chord (2026-10-15).
             c.move = flee + orbit;
-            if (c.move.length() > 1.0f) c.move = c.move.normalised();
+            if (c.move.length() > 0.05f) c.move = c.move.normalised();
 
             if (nearest && ! reckless)
             {
